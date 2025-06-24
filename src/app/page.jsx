@@ -1,3 +1,8 @@
+
+'use client'  
+
+
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import LanguageSelector from './components/LanguageSelector'
