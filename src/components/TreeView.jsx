@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 
 const TreeNode = ({ node, level = 0, isDarkMode }) => {
@@ -51,8 +52,8 @@ const TreeNode = ({ node, level = 0, isDarkMode }) => {
 export default function TreeView({ data, isDarkMode }) {
   return (
     <div className={`mt-4 p-4 rounded-md overflow-auto max-h-64 ${
-      isDarkMode ? 'bg-gray-800' : 'bg-gray-100'
-    }`}>
+      isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-100 border-gray-200'
+    } border`}>
       <h3 className="font-semibold mb-2">Tree View</h3>
       <TreeNode node={data} isDarkMode={isDarkMode} />
     </div>

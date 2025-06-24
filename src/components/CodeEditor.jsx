@@ -1,5 +1,6 @@
+'use client'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { tomorrow, atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { atomDark, ghcolors } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 export default function CodeEditor({ 
   value, 
@@ -8,10 +9,10 @@ export default function CodeEditor({
   isReadOnly = false, 
   isDarkMode 
 }) {
-  const style = isDarkMode ? atomDark : tomorrow
+  const style = isDarkMode ? atomDark : ghcolors
   
   return (
-    <div className="relative rounded-md overflow-hidden">
+    <div className="relative rounded-lg overflow-hidden border">
       {isReadOnly ? (
         <SyntaxHighlighter
           language={language}
@@ -23,7 +24,8 @@ export default function CodeEditor({
             fontSize: '0.875rem',
             minHeight: '300px',
             maxHeight: '500px',
-            overflow: 'auto'
+            overflow: 'auto',
+            backgroundColor: isDarkMode ? '#1e293b' : '#ffffff'
           }}
           wrapLongLines={true}
         >
@@ -33,11 +35,11 @@ export default function CodeEditor({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`w-full p-4 font-mono text-sm rounded-md min-h-[300px] max-h-[500px] overflow-auto ${
+          className={`w-full p-4 font-mono text-sm min-h-[300px] max-h-[500px] overflow-auto ${
             isDarkMode 
-              ? 'bg-surface-dark text-gray-200 border-gray-600' 
-              : 'bg-surface-light text-gray-800 border-gray-300'
-          } border focus:outline-none focus:ring-2 focus:ring-primary-light`}
+              ? 'bg-gray-800 text-gray-200 border-gray-600' 
+              : 'bg-white text-gray-800 border-gray-300'
+          } focus:outline-none focus:ring-2 focus:ring-blue-500`}
           spellCheck="false"
         />
       )}

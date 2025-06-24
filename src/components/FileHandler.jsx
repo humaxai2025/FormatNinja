@@ -1,26 +1,19 @@
-import { useState } from 'react'
+'use client'
 import { FiUpload, FiDownload } from 'react-icons/fi'
 
-export default function FileHandler({ language, setInput, input, isDarkMode }) {
-  const [fileName, setFileName] = useState('')
-  
+export default function FileHandler({ language, setInput, isDarkMode }) {
   const handleFileUpload = (e) => {
     const file = e.target.files[0]
     if (!file) return
     
-    setFileName(file.name)
     const reader = new FileReader()
-    
     reader.onload = (event) => {
       setInput(event.target.result)
     }
-    
     reader.readAsText(file)
   }
   
   const handleDownload = () => {
-    if (!input) return
-    
     const blob = new Blob([input], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -31,31 +24,30 @@ export default function FileHandler({ language, setInput, input, isDarkMode }) {
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
   }
-  
+
   return (
-    <div className="flex space-x-2">
-      <label className={`flex items-center px-3 py-1 rounded-md cursor-pointer ${
+    <div className="flex gap-2">
+      <label className={`flex items-center px-3 py-2 rounded-md cursor-pointer transition ${
         isDarkMode 
-          ? 'bg-surface-dark hover:bg-gray-600' 
-          : 'bg-surface-light hover:bg-gray-200'
+          ? 'bg-gray-700 hover:bg-gray-600' 
+          : 'bg-gray-200 hover:bg-gray-300'
       }`}>
         <FiUpload className="mr-2" />
         Upload
         <input 
           type="file" 
           className="hidden" 
-          onChange={handleFileUpload} 
+          onChange={handleFileUpload}
           accept={`.${language},text/*`}
         />
       </label>
       
       <button 
         onClick={handleDownload}
-        disabled={!input}
-        className={`flex items-center px-3 py-1 rounded-md ${
+        className={`flex items-center px-3 py-2 rounded-md transition ${
           isDarkMode 
-            ? 'bg-surface-dark hover:bg-gray-600 disabled:opacity-50' 
-            : 'bg-surface-light hover:bg-gray-200 disabled:opacity-50'
+            ? 'bg-gray-700 hover:bg-gray-600' 
+            : 'bg-gray-200 hover:bg-gray-300'
         }`}
       >
         <FiDownload className="mr-2" />
